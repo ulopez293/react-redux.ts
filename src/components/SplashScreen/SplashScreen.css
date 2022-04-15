@@ -1,0 +1,39 @@
+.Screen {
+    text-align: center;
+}
+
+.Screen-logo {
+    height: 40vmin;
+    width: 80vmin;
+    pointer-events: none;
+    background-color: #9F9F9F
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .Screen-logo {
+        animation: Screen-logo-spin infinite 20s linear;
+    }
+}
+
+.Screen-header {
+    background-color: #EC5056;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: black;
+}
+
+.Screen-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #000;
+}
+
+.Screen-link {
+    color: #61dafb;
+}
