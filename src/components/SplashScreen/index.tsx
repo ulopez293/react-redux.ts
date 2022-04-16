@@ -1,25 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import Spinner from "react-spinkit";
 import './SplashScreen.css';
+import 'animate.css';
 
 function SplashScreen() {
-    const [fadeIn, setFadeIn] = useState(false);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 4000);
-        setTimeout(() => {
-            setFadeIn(true);
-        }, 6000);
+        }, 3500);
     }, []);
-
     return (
-        <div className={`splash-screen ${fadeIn ? 'hidden' : ''}`}>
-            <header className="Screen-header">
+        <div>
+            <header className="Screen-header animate__animated animate__bounceOut animate__delay-5s">
                 {
                     loading ? <Spinner name="cube-grid" style={{ width: 100, height: 100 }} /> :
-                    <div className={`Screen-logo Screen-logo  ${loading ? 'hidden' : 'visible'}`}>
+                    <div className={`Screen-logo Screen-logo animate__animated animate__fadeIn animate__delay-1s`}>
                         <h2>Logo</h2>
                     </div>
                 }

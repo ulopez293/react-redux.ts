@@ -6,7 +6,7 @@
     height: 40vmin;
     width: 80vmin;
     pointer-events: none;
-    background-color: #9F9F9F
+    background-color: #9F9F9F;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -23,7 +23,18 @@
     align-items: center;
     justify-content: center;
     font-size: calc(10px + 2vmin);
+
+    position: fixed; /* Stay in place */
+    z-index: 99999; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+
     color: black;
+
+    border: 15px solid #9F9F9F;
 }
 
 .Screen-logo {
@@ -34,6 +45,14 @@
     border: 5px solid #000;
 }
 
-.Screen-link {
-    color: #61dafb;
+.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0s 2s linear;
+}
+
+.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 2s, opacity 2s linear;
 }
