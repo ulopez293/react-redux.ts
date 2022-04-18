@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import Spinner from "react-spinkit";
+import React from 'react';
 import './Login.css';
 
 import Avatar from '@mui/material/Avatar';
