@@ -1,61 +1,44 @@
-import React from 'react';
-import './Login.css';
+import React, { useEffect } from 'react'
+import './Login.css'
+import Logo from '../Logo'
+import Theme from './Theme'
 
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button'
+import CssBaseline from '@mui/material/CssBaseline'
+import TextField from '@mui/material/TextField'
+import Link from '@mui/material/Link'
+import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
+import Container from '@mui/material/Container'
 
-
-function Copyright(props: any) {
-    return (
-        <Typography variant="body2" color="text.secondary" align="center" {...props}>
-            {'Copyright © '}
-            <Link color="inherit"
-                  href="https://www.facebook.com/grullasoftware/">
-                Grulla Software
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
-const theme = createTheme();
 
 function Login() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        const data = new FormData(event.currentTarget);
+        event.preventDefault()
+        const data = new FormData(event.currentTarget)
         console.log({
             email: data.get('email'),
             password: data.get('password'),
-        });
+        })
     }
 
+    useEffect(() => {
+        document.body.classList.add('background-red-login')
+        return () => { document.body.classList.remove('background-red-login') }
+    }, [])
+
     return (
-        <ThemeProvider theme={theme}>
+        <Theme>
             <Container component="main" maxWidth="xs">
                 <CssBaseline />
-                <Box
-                    sx={{
-                        marginTop: 8,
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Avatar sx={{ m: 1, bgcolor: 'primary.main', width: 128, height: 128 }}>
-                        <LockOutlinedIcon sx={{ width: 70, height: 70 }} />
-                    </Avatar>
+                <Box sx={{
+                    marginTop: 8,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                }} >
+                    <Logo />
                     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
@@ -76,23 +59,20 @@ function Login() {
                             id="password"
                             autoComplete="current-password"
                         />
-                        <FormControlLabel
-                            control={<Checkbox value="remember" color="primary" />}
-                            label="Recuérdame"
-                        />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
+                            disabled
                         >
-                            INICIAR SESIÓN
+                            ENTRAR
                         </Button>
-                        <Grid container>
+                        <Grid container justifyContent="flex-end" >
                             <Grid item>
-                                <Link href="https://grullasoftware.online/"
-                                      variant="body2">
-                                    {"¿Se te olvidó tu contraseña? / ¿No tienes una cuenta?"}
+                                <Link color="text.secondary"
+                                    variant="body2">
+                                    {"¿Olvidaste tu Contraseña?"}
                                 </Link>
                             </Grid>
                         </Grid>
@@ -100,7 +80,15 @@ function Login() {
                 </Box>
                 <Copyright sx={{ mt: 8, mb: 4 }} />
             </Container>
-        </ThemeProvider>
+        </Theme>
+    )
+}
+
+function Copyright(props: any) {
+    return (
+        <Typography variant="body2" color="text.secondary" align="center" {...props}>
+            {'Copyright © '}{new Date().getFullYear()}
+        </Typography>
     )
 }
 

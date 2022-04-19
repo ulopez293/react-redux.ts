@@ -10,9 +10,3 @@
     justify-content: center;
     border: 5px solid #000;    
 }
-
-@media (prefers-reduced-motion: no-preference) {
-    .Screen-logo {
-        animation: Screen-logo-spin infinite 20s linear;
-    }
-}

@@ -9,9 +9,7 @@ import Login from './components/Login';
 function App() {
 
   useEffect(() => {
-    setTimeout(() => {
-      loadAction(true)(store.dispatch);
-    }, 3500);
+    setTimeout(() => { loadAction(true)(store.dispatch) }, 3500); // optional timing after which to load
   }, []);
 
 
