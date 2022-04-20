@@ -1,4 +1,4 @@
-import { SET_LOAD } from '../actions/types';
+import { SET_LOAD } from '../types/types';
 
 const reducer = ( state: any, action: any ) => {
     switch ( action.type ) {

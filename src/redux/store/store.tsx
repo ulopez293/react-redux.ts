@@ -3,7 +3,8 @@ import { composeWithDevTools } from 'redux-devtools-extension';
 import reducer from '../reducers/reducer';
 
 const initialState = {
-    load: false
+    load: false,
+    login: false,
 }
 
 export const store = createStore (

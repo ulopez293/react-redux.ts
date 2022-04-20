@@ -1,4 +1,4 @@
-import { SET_LOAD } from "./types"
+import { SET_LOAD } from "../types/types"
 
 export const loadAction = (load: boolean) => (dispatch: any) => {
     dispatch({

@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import './Login.css'
 import Logo from '../Logo'
 import Theme from './Theme'
+
+import API from '../../utilities/api'
 
 import Button from '@mui/material/Button'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -14,15 +16,55 @@ import Container from '@mui/material/Container'
 
 
 function Login() {
+    const passwordRef = useRef<HTMLInputElement>(null)
+    const [credentials, setCredentials] = useState({
+        email: '',
+        password: '',
+        disabledButton: true
+    })
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+        if (data.get('email') !== 'prueba@nextia.mx' && data.get('password') !== 'PruebaNextia2022') {
+            alert('Usuario o contraseña incorrectos')
+            return
+        }
+
+        API.callPOST('/login', {
+            user: { email: data.get('email'), password: data.get('password') }
+        }, (response: any) => {
+            console.log(response)
+            console.log(localStorage.getItem('token'))
+        }, (error: any) => {
+            console.log(error)
+            alert('Error al iniciar sesión')
         })
+
+    }
+    
+    const handleLoginKeyUp = (event: any) => {
+        if (event.key !== 'Enter') return
+        event.preventDefault()
+        if (event.target.name === 'email') {
+            passwordRef.current?.focus()
+        }
     }
 
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = event.target
+        let newValues = { ...credentials, [name]: value }
+        if (newValues.email.trim().length > 0 && newValues.password.trim().length > 0) {
+            setCredentials({ ...newValues, disabledButton: false })
+        } else {
+            setCredentials({ ...newValues, disabledButton: true })
+        }
+    }
+    
+    const forgetPassword = (event: any) => {
+        alert("email: prueba@nextia.mx password: PruebaNextia2022")
+    }
+    
     useEffect(() => {
         document.body.classList.add('background-red-login')
         return () => { document.body.classList.remove('background-red-login') }
@@ -39,7 +81,7 @@ function Login() {
                     alignItems: 'center',
                 }} >
                     <Logo />
-                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                    <Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
                         <TextField
                             margin="normal"
                             required
@@ -48,6 +90,9 @@ function Login() {
                             label="Dirección de correo electrónico"
                             name="email"
                             autoComplete="email"
+                            type="email"
+                            onKeyUp={handleLoginKeyUp}
+                            onChange={handleChange}
                         />
                         <TextField
                             margin="normal"
@@ -58,19 +103,23 @@ function Login() {
                             type="password"
                             id="password"
                             autoComplete="current-password"
+                            inputRef={passwordRef}
+                            onChange={handleChange}
                         />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
-                            disabled
+                            disabled={credentials.disabledButton}
                         >
                             ENTRAR
                         </Button>
                         <Grid container justifyContent="flex-end" >
                             <Grid item>
                                 <Link color="text.secondary"
+                                    style={{ cursor: 'pointer' }}
+                                    onClick={forgetPassword}
                                     variant="body2">
                                     {"¿Olvidaste tu Contraseña?"}
                                 </Link>

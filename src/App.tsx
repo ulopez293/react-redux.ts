@@ -1,4 +1,6 @@
 import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import { Provider } from 'react-redux';
 import { store } from './redux/store/store';
 import { loadAction } from './redux/actions/actions';
@@ -15,8 +17,14 @@ function App() {
 
   return (
     <Provider store={store}>
-      <SplashScreen />
-      <Login />
+      <BrowserRouter>
+        <SplashScreen />
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="expenses" element={<Login />} />
+          <Route path="invoices" element={<Login />} />
+        </Routes>
+      </BrowserRouter>
     </Provider>
   );
 }
