@@ -4,7 +4,10 @@ import reducer from '../reducers/reducer';
 
 const initialState = {
     load: false,
-    login: false,
+    login: {
+        active: false,
+        user: {}
+    }
 }
 
 export const store = createStore (

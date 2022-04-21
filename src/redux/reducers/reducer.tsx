@@ -1,4 +1,4 @@
-import { SET_LOAD } from '../types/types';
+import { SET_LOAD, SET_LOGIN } from '../types/types';
 
 const reducer = ( state: any, action: any ) => {
     switch ( action.type ) {
@@ -6,6 +6,11 @@ const reducer = ( state: any, action: any ) => {
             return {
                 ...state,
                 load: action.payload
+            }
+        case SET_LOGIN:
+            return {
+                ...state,
+                login: action.payload
             }
         default:
             return state

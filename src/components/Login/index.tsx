@@ -1,4 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+
+import { useDispatch } from 'react-redux'
+import { loginAction } from '../../redux/actions/actions'
+
 import './Login.css'
 import Logo from '../Logo'
 import Theme from './Theme'
@@ -17,11 +22,9 @@ import Container from '@mui/material/Container'
 
 function Login() {
     const passwordRef = useRef<HTMLInputElement>(null)
-    const [credentials, setCredentials] = useState({
-        email: '',
-        password: '',
-        disabledButton: true
-    })
+    const [credentials, setCredentials] = useState({ email: '', password: '', disabledButton: true })
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -34,8 +37,8 @@ function Login() {
         API.callPOST('/login', {
             user: { email: data.get('email'), password: data.get('password') }
         }, (response: any) => {
-            console.log(response)
-            console.log(localStorage.getItem('token'))
+            loginAction({ active: true, user: response })(dispatch)
+            navigate('/home')
         }, (error: any) => {
             console.log(error)
             alert('Error al iniciar sesión')
