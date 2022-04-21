@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { useDispatch } from 'react-redux'
 import { loginAction } from '../../redux/actions/actions'
+import { client } from '../../configuration'
 
 import './Login.css'
 import Logo from '../Logo'
@@ -29,7 +30,7 @@ function Login() {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
-        if (data.get('email') !== 'prueba@nextia.mx' && data.get('password') !== 'PruebaNextia2022') {
+        if (data.get('email') !== client.email && data.get('password') !== client.password) {
             alert('Usuario o contraseña incorrectos')
             return
         }

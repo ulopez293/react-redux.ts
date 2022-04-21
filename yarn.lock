@@ -7537,7 +7537,17 @@
   "resolved" "https://registry.npmjs.org/redux-devtools-extension/-/redux-devtools-extension-2.13.9.tgz"
   "version" "2.13.9"
 
-"redux@^3.1.0 || ^4.0.0", "redux@^4.0.0", "redux@^4.1.2":
+"redux-persist-transform-expire-in@^1.1.0":
+  "integrity" "sha512-Sf2upkmdl+w+1EBYyMYb4Th2GrbdN2xYSRQx7I04O/vY8dpF0jtnBd5iuIWWy8sXHj6VtvXZ63CS7owqHW7m9A=="
+  "resolved" "https://registry.npmjs.org/redux-persist-transform-expire-in/-/redux-persist-transform-expire-in-1.1.0.tgz"
+  "version" "1.1.0"
+
+"redux-persist@^6.0.0", "redux-persist@>=5":
+  "integrity" "sha512-71LLMbUq2r02ng2We9S215LtPu3fY0KgaGE0k8WRgl6RkqxtGfl7HUozz1Dftwsb0D/5mZ8dwAaPbtnzfvbEwQ=="
+  "resolved" "https://registry.npmjs.org/redux-persist/-/redux-persist-6.0.0.tgz"
+  "version" "6.0.0"
+
+"redux@^3.1.0 || ^4.0.0", "redux@^4.0.0", "redux@^4.1.2", "redux@>=4", "redux@>4.0.0":
   "integrity" "sha512-SH8PglcebESbd/shgf6mii6EIoRM0zrQyjcuQ+ojmfxjTtE0z9Y8pa62iA/OJ58qjP6j27uyW4kUF4jl/jd6sw=="
   "resolved" "https://registry.npmjs.org/redux/-/redux-4.1.2.tgz"
   "version" "4.1.2"

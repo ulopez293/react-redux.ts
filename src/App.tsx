@@ -2,8 +2,9 @@ import { useEffect, useState } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import { Provider } from 'react-redux';
-import { store } from './redux/store/store';
+import { store, Persistor } from './redux/store/store';
 import { loadAction } from './redux/actions/actions';
+import { PersistGate } from 'redux-persist/integration/react'
 
 import SplashScreen from './components/SplashScreen';
 import Login from './components/Login';
@@ -13,7 +14,7 @@ function App() {
   let [login, setLogin] = useState(store.getState().login.active)
   store.subscribe(() => {
     let status = store.getState().login.active
-    if (status) setLogin(status) 
+    if (status) setLogin(status)
   })
 
   useEffect(() => {
@@ -23,14 +24,19 @@ function App() {
 
   return (
     <Provider store={store}>
-      <BrowserRouter>
-        <SplashScreen />
-        <Routes>
-          <Route path="/" element={<Login />} />
-          { login && ( <Route path="/home" element={<Home />} /> ) }
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={Persistor}>
+        <BrowserRouter>
+          <SplashScreen />
+          <Routes>
+            <Route path="/" element={<Login />} />
+            {login ? <>
+              <Route path="/home" element={<Home />} />
+            </> : <></>
+            }
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   );
 }
