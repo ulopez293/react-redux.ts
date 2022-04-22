@@ -6,6 +6,7 @@ import { store, Persistor } from './redux/store/store';
 import { loadAction } from './redux/actions/actions';
 import { PersistGate } from 'redux-persist/integration/react'
 
+import Theme from './Theme';
 import SplashScreen from './components/SplashScreen';
 import Login from './components/Login';
 import Home from './components/Home';
@@ -27,14 +28,12 @@ function App() {
       <PersistGate loading={null} persistor={Persistor}>
         <BrowserRouter>
           <SplashScreen />
-          <Routes>
-            <Route path="/" element={<Login />} />
-            {login ? <>
-              <Route path="/home" element={<Home />} />
-            </> : <></>
-            }
-            <Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
+          <Theme>
+            <Routes>
+              {login ? <Route path="/" element={<Home />} /> : <Route path="/" element={<Login />} />}
+              <Route path="*" element={<Navigate to="/" replace />} />
+            </Routes>
+          </Theme>
         </BrowserRouter>
       </PersistGate>
     </Provider>
