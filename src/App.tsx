@@ -10,6 +10,7 @@ import Theme from './Theme';
 import SplashScreen from './components/SplashScreen';
 import Login from './components/Login';
 import Home from './components/Home';
+import Navbar from './components/Navbar';
 
 function App() {
   let [login, setLogin] = useState(store.getState().login.active)
@@ -17,18 +18,18 @@ function App() {
     let status = store.getState().login.active
     if (status) setLogin(status)
   })
-
+  
   useEffect(() => {
     setTimeout(() => { loadAction(true)(store.dispatch) }, 3500); // optional timing after which to load
   }, []);
-
-
+  
   return (
     <Provider store={store}>
       <PersistGate loading={null} persistor={Persistor}>
         <BrowserRouter>
           <SplashScreen />
           <Theme>
+            <Navbar login={login} />
             <Routes>
               {login ? <Route path="/" element={<Home />} /> : <Route path="/" element={<Login />} />}
               <Route path="*" element={<Navigate to="/" replace />} />
