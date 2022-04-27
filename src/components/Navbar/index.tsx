@@ -1,4 +1,6 @@
-import * as React from 'react'
+import { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
+import { loginAction } from '../../redux/actions/actions'
 
 import NavbarMenu from './NavbarMenu'
 import Logo from '../Logo'
@@ -17,12 +19,16 @@ import MenuItem from '@mui/material/MenuItem'
 import Menu from '@mui/material/Menu'
 
 function Navbar({ login }: { login: boolean }) {
-    const [auth, setAuth] = React.useState(true)
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-    const [showMenu, setShowMenu] = React.useState(0)
+    const auth = useSelector((state: any) => state.login.active)
+    const dispatch = useDispatch()
+
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
+    const [showMenu, setShowMenu] = useState(0)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setAuth(event.target.checked)
+        loginAction({ active: event.target.checked, user: {} })(dispatch)
+        localStorage.removeItem('token')
+        window.location.reload()
     }
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {

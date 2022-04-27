@@ -1,4 +1,7 @@
 import * as React from 'react'
+import { useDispatch } from 'react-redux'
+import { loginAction } from '../../redux/actions/actions'
+
 import Box from '@mui/material/Box'
 import LogoutIcon from '@mui/icons-material/Logout'
 import List from '@mui/material/List'
@@ -20,6 +23,7 @@ interface Props {
 }
 
 function NavbarMenu({ showMenu, setShowMenu }: Props) {
+    const dispatch = useDispatch()
     const [state, setState] = React.useState({ left: false })
     const anchor = 'left'
     const toggleDrawer = (anchor: Anchor, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
@@ -35,8 +39,13 @@ function NavbarMenu({ showMenu, setShowMenu }: Props) {
         setState({ ...state, [anchor]: open })
     }
 
+    const logout = () => {
+        loginAction({ active: false, user: {} })(dispatch)
+        localStorage.removeItem('token')
+        window.location.reload()
+    }
+
     React.useEffect(() => {
-        console.log(showMenu)
         setState({ ...state, [anchor]: Boolean(showMenu) })
     }, [showMenu])
 
@@ -64,7 +73,10 @@ function NavbarMenu({ showMenu, setShowMenu }: Props) {
                 </ListItem>
             </List>
             <List sx={{ position: 'absolute', bottom: 0, width: '100%' }}>
-                <ListItem button key="Logout">
+                <ListItem button key="Logout"
+                    sx={{ cursor: 'pointer' }}
+                    onClick={logout}
+                >
                     <ListItemIcon sx={{ color: 'white' }}>
                         <LogoutIcon />
                     </ListItemIcon>
