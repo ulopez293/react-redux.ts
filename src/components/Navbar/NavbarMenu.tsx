@@ -2,6 +2,8 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import { loginAction } from '../../redux/actions/actions'
 
+import { useNavigate } from 'react-router-dom'
+
 import Box from '@mui/material/Box'
 import LogoutIcon from '@mui/icons-material/Logout'
 import List from '@mui/material/List'
@@ -23,6 +25,7 @@ interface Props {
 }
 
 function NavbarMenu({ showMenu, setShowMenu }: Props) {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const [state, setState] = React.useState({ left: false })
     const anchor = 'left'
@@ -65,7 +68,7 @@ function NavbarMenu({ showMenu, setShowMenu }: Props) {
             </List>
             <Divider />
             <List>
-                <ListItem button key="Benavits">
+                <ListItem button key="Benavits" onClick={()=> { navigate('/') } } >
                     <ListItemIcon sx={{ color: 'white' }}>
                         <ViewListIcon />
                     </ListItemIcon>
