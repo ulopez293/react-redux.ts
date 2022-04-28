@@ -2,7 +2,7 @@ import { server } from '../configuration'
 
 interface Cabecera {
     'Content-Type': string,
-    'Authorization': string | null
+    Authorization: string | null
 }
 
 class API {
@@ -12,7 +12,7 @@ class API {
     constructor() {
         this.cabecera = {
             'Content-Type': 'application/json',
-            Authorization: localStorage.getItem('token')
+            'Authorization': localStorage.getItem('token')
         }
     }
 
@@ -44,7 +44,10 @@ class API {
         fetch(server.host + url, properties)
             .then(async response => {
                 if (response.ok) {
-                    localStorage.setItem('token', await response.headers.get('Authorization') || '')
+                    const token = await response.headers.get('Authorization')
+                    if (token) {
+                        localStorage.setItem('token', token)
+                    }
                     return response.json()
                 }
                 failureCallback(JSON.stringify(response))

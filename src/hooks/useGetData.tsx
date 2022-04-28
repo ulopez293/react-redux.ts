@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import API from '../utilities/api'
 
-export default function useGetData(url: string, props:any) {
+export default function useGetData(url: string) {
   const [data, setData] = useState(null)
 
   useEffect(() => {
