@@ -12,7 +12,7 @@ export default function useGetData(url: string) {
         console.log(`Error al cargar los ${ruta}: `, error)
         setTimeout(()=>{
           longPolling(url)
-        }, 10000)
+        }, 5000)
       })
     })
     setData(finish)
