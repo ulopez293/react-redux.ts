@@ -23,7 +23,7 @@ function Login() {
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
         if (data.get('email') !== client.email && data.get('password') !== client.password) {
@@ -31,7 +31,7 @@ function Login() {
             return
         }
 
-        API.callPOST('/login', {
+        API.callLOGIN('/login', {
             user: { email: data.get('email'), password: data.get('password') }
         }, (response: any) => {
             loginAction({ active: true, user: response })(dispatch)
@@ -40,7 +40,6 @@ function Login() {
             console.log(error)
             alert('Error al iniciar sesión')
         })
-
     }
 
     const handleLoginKeyUp = (event: any) => {
