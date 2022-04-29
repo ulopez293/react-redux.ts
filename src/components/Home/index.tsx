@@ -50,7 +50,7 @@ function Home() {
                             <CardMedia
                                 component="img"
                                 height="140"
-                                image={benevit.vector_full_path}
+                                image={benevit.ally.mini_logo_full_path}
                                 alt={benevit.name}
                             />
                             <CardContent>
