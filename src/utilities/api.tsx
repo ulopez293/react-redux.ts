@@ -2,7 +2,7 @@ import { server } from '../configuration'
 
 interface Cabecera {
     'Content-Type': string,
-    Authorization ?: string | null
+    Authorization?: string | null
 }
 
 class API {
@@ -23,7 +23,7 @@ class API {
     }
 
     public callLOGIN(url: string, body: Object, successCallback: Function, failureCallback: Function) {
-        let properties = { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(body) }
+        let properties = { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
         this.callToken(url, properties, successCallback, failureCallback)
     }
 
@@ -36,7 +36,7 @@ class API {
     public callDELETE(url: string, successCallback: Function, failureCallback: Function) {
         this.auth()
         let properties = { method: 'DELETE', headers: this.cabecera }
-        this.call(url, properties, successCallback, failureCallback)
+        this.callNUll(url, properties, successCallback, failureCallback)
     }
 
     public callPUT(url: string, body: Object, successCallback: Function, failureCallback: Function) {
@@ -55,7 +55,7 @@ class API {
         this.call(url, properties, successCallback, failureCallback)
     }
 
-    private callToken(url: string, properties: Object, successCallback: Function, failureCallback: Function){
+    private callToken(url: string, properties: Object, successCallback: Function, failureCallback: Function) {
         fetch(server.host + url, properties)
             .then(async response => {
                 if (response.ok) {
@@ -63,7 +63,7 @@ class API {
                     if (token) {
                         localStorage.setItem('token', token)
                         return await response.json()
-                    } else{
+                    } else {
                         new Error("No se ha recibido el token")
                     }
                 }
@@ -83,6 +83,17 @@ class API {
             })
             .then(datos => successCallback(datos))
             .catch(error => failureCallback(error))
+    }
+
+    private callNUll(url: string, properties: Object, successCallback: Function, failureCallback: Function) {
+        fetch(server.host + url, properties).then(async response => {
+            if (response.ok) {
+                return JSON.stringify({})
+            }
+            failureCallback(JSON.stringify({}))
+        })
+        .then(datos => successCallback(datos))
+        .catch(error => failureCallback(error))
     }
 }
 

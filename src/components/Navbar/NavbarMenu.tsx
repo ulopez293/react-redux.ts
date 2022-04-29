@@ -2,6 +2,8 @@ import * as React from 'react'
 import { useDispatch } from 'react-redux'
 import { loginAction } from '../../redux/actions/actions'
 
+import API from '../../utilities/api'
+
 import { useNavigate } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
@@ -43,9 +45,15 @@ function NavbarMenu({ showMenu, setShowMenu }: Props) {
     }
 
     const logout = () => {
-        loginAction({ active: false, user: {} })(dispatch)
-        localStorage.removeItem('token')
-        window.location.reload()
+        if (!window.confirm("Esta seguro que desea cerrar sesión?")) return
+        API.callDELETE('/logout', (response: any) => {
+            loginAction({ active: false, user: {} })(dispatch)
+            localStorage.removeItem('token')
+            window.location.reload()
+        }, (error: any) => {
+            console.log(error)
+            alert('Error al cerrar sesión')
+        })
     }
 
     React.useEffect(() => {

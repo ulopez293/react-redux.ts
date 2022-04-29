@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { loginAction } from '../../redux/actions/actions'
 
+import API from '../../utilities/api'
+
 import NavbarMenu from './NavbarMenu'
 import Logo from '../Logo'
 
@@ -26,9 +28,15 @@ function Navbar({ login }: { login: boolean }) {
     const [showMenu, setShowMenu] = useState(0)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (!window.confirm("Esta seguro que desea cerrar sesión?")) return
         loginAction({ active: event.target.checked, user: {} })(dispatch)
-        localStorage.removeItem('token')
-        window.location.reload()
+        API.callDELETE('/logout', (response: any) => {
+            localStorage.removeItem('token')
+            window.location.reload()
+        }, (error: any) => {
+            console.log(error)
+            alert('Error al cerrar sesión')
+        })
     }
 
     const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
