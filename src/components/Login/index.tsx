@@ -61,7 +61,7 @@ function Login() {
     }
 
     const forgetPassword = (event: any) => {
-        alert("email: prueba@nextia.mx password: PruebaNextia2022")
+        alert("email: usuario password: 1234")
     }
 
     useEffect(() => {

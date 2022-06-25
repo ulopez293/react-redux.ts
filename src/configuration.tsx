@@ -3,8 +3,8 @@ const server = {
 }
 
 const client = {
-    email: "prueba@nextia.mx",
-    password: "PruebaNextia2022"
+    email: "usuario",
+    password: "1234"
 }
 
 export { server, client }

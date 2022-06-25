@@ -2,7 +2,7 @@ import API from "./api"
 
 test("login is an object", async () => {
     API.callLOGIN("/login", {
-        user: { email: "prueba@nextia.mx", password: "PruebaNextia2022" }
+        user: { email: "usuario", password: "1234" }
     }, (response: any) => {
         expect(response).toBeTruthy()
     }, (error: any) => {
